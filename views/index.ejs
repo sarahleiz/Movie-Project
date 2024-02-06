@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Database</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <style>
+  .alert {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .alert-success {
+    background-color: #28a745; /* Green color for success */
+    color: #fff; /* White text color for better readability */
+  }
+
+  .alert-danger {
+    background-color: #dc3545; /* Red color for error */
+    color: #fff; /* White text color for better readability */
+  }
+</style>
+
+<!-- Display flash messages -->
+<% if (flashMessages.success) { %>
+  <div id="success-flash" class="alert alert-success" role="alert">
+    <%= flashMessages.success %>
+  </div>
+<% } %>
+
+<% if (flashMessages.error) { %>
+  <div id="error-flash" class="alert alert-danger" role="alert">
+    <%= flashMessages.error %>
+  </div>
+<% } %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Function to hide flash messages after a few seconds
+    const hideFlashMessages = () => {
+      const successFlash = document.getElementById('success-flash');
+      const errorFlash = document.getElementById('error-flash');
+
+      if (successFlash) {
+        successFlash.classList.add('hidden');
+      }
+
+      if (errorFlash) {
+        errorFlash.classList.add('hidden');
+      }
+    };
+
+    // Hide flash messages after 3 seconds (adjust as needed)
+    setTimeout(hideFlashMessages, 3000);
+
+    const favoriteButtons = document.querySelectorAll('.favorite-button');
+
+    favoriteButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Toggle the 'favorited' class
+        this.classList.toggle('favorited');
+
+        // Update the text content of the heart icon based on the class
+        const heartIcon = this.querySelector('.bi-heart-fill');
+        if (this.classList.contains('favorited')) {
+          heartIcon.classList.replace('bi-heart', 'bi-heart-fill');
+        } else {
+          heartIcon.classList.replace('bi-heart-fill', 'bi-heart');
+        }
+      });
+    });
+  });
+</script>
+  <nav class="navbar">
+      <container></container>
+      <h1>Movie Diary</h1>
+      <a class="favorites-link" href="/favorites">Favorites</a>
+  </nav>
+  <div class="container">
+    <form action="/search" method="POST" class="searchbar">
+      <input type="text" name="movieTitle" placeholder="Search for a movie...">
+      <button type="submit">Search</button>
+    </form>
+    <h2>Saved Movies</h2>
+    <h3>You've watched <%= totalMovies %> movies a total of <%= totalTimesWatched %> times!</h3>
+    <form action="/sort" method="POST">
+      <label for="sort">Sort By:</label>
+      <select id="sort" name="sort">
+        <option value="title">Title (A-Z)</option>
+        <option value="timesWatched">Number of Times Watched</option>
+        <option value="year">Year</option>
+        <option value="boxOffice">Box Office</option>
+      </select>
+      <button type="submit">Sort</button>
+    </form>
+    <ul class="movie-grid">
+    <container></container>
+    <container></container>
+    <container></container>
+      <!-- index.ejs -->
+<!-- ... (existing code) -->
+<% savedMovies.forEach(movie => { %>
+  <li class="movie-item">
+    <div class="poster-container">
+      <img src="<%= movie.poster %>" alt="<%= movie.title %> Poster">
+    </div>
+    <div class="details">
+      <h3><%= movie.title %></h3>
+      <p>Watched: <%= movie.timesWatched %> times</p>
+      <div class="buttons">
+        <a class="watch-button" href="/watch/<%= movie._id %>">Watch</a>
+        <a class="delete-button" href="/delete/<%= movie._id %>">Delete</a>
+        <a class="details-button" href="/details/<%= movie._id %>">Details</a>
+        <a class="favorite-button" href="/favorite/<%= movie._id %>">Heart
+         <i class="bi-heart-fill" style="color: red; font-size: 20px;"></i>
+        </a>
+        </div>
+    </div>
+  </li>
+<% }); %>
+<!-- ... (existing code) -->
+
+   
+    </ul>
+  </div>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const favoriteButtons = document.querySelectorAll('.favorite-button');
+
+    favoriteButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Toggle the 'favorited' class
+        this.classList.toggle('favorited');
+
+        // Update the text content of the heart icon based on the class
+        const heartIcon = this.querySelector('.bi-heart-fill');
+        if (this.classList.contains('favorited')) {
+          heartIcon.classList.replace('bi-heart', 'bi-heart-fill');
+        } else {
+          heartIcon.classList.replace('bi-heart-fill', 'bi-heart');
+        }
+      });
+    });
+  });
+  </script>
+
+</body>
+</html>

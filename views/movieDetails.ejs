@@ -1,0 +1,29 @@
+<!-- movieDetails.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Details - Movie Database</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Movie Diary</h1>
+  </nav>
+  <div class="container">
+    <h2><%= movie.title %> Details</h2>
+    <div class="details-content">
+      <img src="<%= movie.poster %>" alt="<%= movie.title %> Poster">
+      <div class="details">
+        <p><strong>Director:</strong> <%= movie.director %></p>
+        <p><strong>Year:</strong> <%= movie.year %></p>
+        <p><strong>Box Office:</strong> <%= movie.boxOffice %></p>
+        <p><strong>Watched:</strong> <%= movie.timesWatched %> times</p>
+      </div>
+    </div>
+    <a href="/" class="back-link">Back to Home</a>
+  </div>
+</body>
+</html>

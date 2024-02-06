@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Database</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Save Movie</title>
+</head>
+<body>
+  <div class="container">
+    <%= movie.Title %><br />
+    <%= movie.Year %><br />
+    <%= movie.Plot %><br />
+    <br /><br />
+
+    <form action="/save" method="POST">
+      <input type="hidden" name="title" value="<%= movie.Title %>" />
+      <input type="hidden" name="poster" value="<%= movie.Poster %>" />
+      <input type="hidden" name="director" value="<%= movie.Director %>" />
+      <input type="hidden" name="year" value="<%= movie.Year %>" />
+      <input type="hidden" name="boxOffice" value="<%= movie.BoxOffice %>" />
+      <button type="submit">Save</button>
+    </form>
+
+    <a href="/">Search Again</a>
+  </div>
+</body>
+</html>
